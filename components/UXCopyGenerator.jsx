@@ -910,7 +910,6 @@ function GenerateTab({ guidelines, saved, prd, onResult, generateResult }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(null);
-  const [contextFocused, setContextFocused] = useState(false);
 
   const [platform, setPlatform] = useState("ios");
   const [typeaheadQuery, setTypeaheadQuery] = useState("");
@@ -1150,6 +1149,8 @@ function GenerateResults({ result, copyType }) {
   data.variations.every(v => v && (v.headline || v.body || v.cta));
   const [copied, setCopied] = useState(null);
   const [copiedAll, setCopiedAll] = useState(false);
+  const [showAllGuidelines, setShowAllGuidelines] = React.useState(false);
+
 if (!isValidGenerateResult(result)) {
   return (
     <div style={{ padding: 20, color: C.error }}>
