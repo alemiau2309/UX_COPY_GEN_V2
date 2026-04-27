@@ -986,7 +986,7 @@ const handleCopy = (v, i) => {
           display: "inline-block", marginBottom: 20, fontFamily: SANS, fontSize: 16, fontWeight: 500,
           color: C.success, background: C.successDim, padding: "5px 14px", borderRadius: 999,
           border: `1px solid rgba(45,106,79,0.15)`,
-        }}>✓ Context applied</span>
+        }}>✓ Guidelines applied</span>
       )}
 
       <SectionTitle>What do you need?</SectionTitle>
@@ -1294,19 +1294,28 @@ if (!isValidGenerateResult(result)) {
         ))}
       </div>
 
-      {result.guidelinesApplied?.length > 0 && (
-        <div style={{ marginBottom: 24 }}>
-          <p style={{ fontFamily: SANS, fontSize: 19, fontWeight: 600, color: C.success, margin: "0 0 8px" }}>Context applied</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-            {result.guidelinesApplied.map((g, i) => (
-              <span key={i} style={{ padding: "5px 13px", borderRadius: 999, background: C.successDim,
-                border: `1px solid rgba(45,106,79,0.15)`, fontFamily: SANS, fontSize: 19, color: C.success }}>
-                {g}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+     {result.guidelinesApplied?.length > 0 && (
+  <div style={{ marginBottom: 24 }}>
+    <p style={{ fontFamily: SANS, fontSize: 19, fontWeight: 600, color: C.success, margin: "0 0 8px" }}>Guidelines applied</p>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      {(result.guidelinesApplied.slice(0, showAllGuidelines ? result.guidelinesApplied.length : 4)).map((g, i) => (
+        <span key={i} style={{ padding: "5px 13px", borderRadius: 999, background: C.successDim,
+          border: `1px solid rgba(45,106,79,0.15)`, fontFamily: SANS, fontSize: 19, color: C.success }}>
+          {g}
+        </span>
+      ))}
+    </div>
+    {result.guidelinesApplied.length > 4 && (
+      <button onClick={() => setShowAllGuidelines(v => !v)} style={{
+        background: "none", border: "none", padding: 0, cursor: "pointer",
+        fontFamily: SANS, fontSize: 15, color: C.secondary, textDecoration: "underline",
+        textDecorationColor: C.borderMid, textUnderlineOffset: 3, marginTop: 8, display: "block",
+      }}>
+        {showAllGuidelines ? "− Show less" : "See all"}
+      </button>
+    )}
+  </div>
+)}
 
       {result.tip && (
         <div style={{ padding: 18, background: C.surface2, borderRadius: 10, border: `1px solid ${C.border}`, marginBottom: 20 }}>
