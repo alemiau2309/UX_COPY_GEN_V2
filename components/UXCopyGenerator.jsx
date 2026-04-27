@@ -903,6 +903,8 @@ function GenerateTab({ guidelines, saved, prd, onResult, generateResult }) {
   const [copyType, setCopyType] = useState(null);
   const [context, setContext] = useState("");
   const [showContext, setShowContext] = useState(false);
+  const [contextFocused, setContextFocused] = useState(false);
+
   const [showScreenshot, setShowScreenshot] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imageBase64, setImageBase64] = useState(null);
