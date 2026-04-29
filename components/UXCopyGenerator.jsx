@@ -192,7 +192,19 @@ Respond ONLY with valid JSON (no markdown, no backticks) in this exact format:
     { "label": "<what was checked>", "pass": <true/false>, "score": <number 0-10>, "detail": "<specific feedback>" }
   ],
   "violations": ["<guideline violated>"],
-  "rewrite": {     "headline": "<rewritten headline/title, or empty string if not applicable>",     "body": "<rewritten body/message>",     "cta": "<rewritten primary CTA, or empty string>",     "cta2": "<rewritten secondary CTA, or empty string>",     "fieldLabels": {       "headline": "<label like 'Heading', 'Title', 'Subject'>",       "body": "<label like 'Body', 'Message', 'Subtitle'>",       "cta": "<specific CTA label like 'Try again', 'Submit'>",       "cta2": "<specific secondary label like 'Cancel', 'Dismiss'>"     },     "rationale": "<1 sentence on what changed and why>"   },
+  "rewrite": {
+    "headline": "<rewritten headline/title, or empty string if not applicable>",
+    "body": "<rewritten body/message>",
+    "cta": "<rewritten primary CTA, or empty string>",
+    "cta2": "<rewritten secondary CTA, or empty string>",
+    "fieldLabels": {
+      "headline": "<label like 'Heading', 'Title', 'Subject'>",
+      "body": "<label like 'Body', 'Message', 'Subtitle'>",
+      "cta": "<specific CTA label like 'Try again', 'Submit'>",
+      "cta2": "<specific secondary label like 'Cancel', 'Dismiss'>"
+    },
+    "rationale": "<1 sentence on what changed and why>"
+  },
   "accessibility": {
     "score": <number 0-10>,
     "checks": [
