@@ -192,7 +192,7 @@ Respond ONLY with valid JSON (no markdown, no backticks) in this exact format:
     { "label": "<what was checked>", "pass": <true/false>, "score": <number 0-10>, "detail": "<specific feedback>" }
   ],
   "violations": ["<guideline violated>"],
-  "rewrite": "<suggested improved version>",
+  "rewrite": {     "headline": "<rewritten headline/title, or empty string if not applicable>",     "body": "<rewritten body/message>",     "cta": "<rewritten primary CTA, or empty string>",     "cta2": "<rewritten secondary CTA, or empty string>",     "fieldLabels": {       "headline": "<label like 'Heading', 'Title', 'Subject'>",       "body": "<label like 'Body', 'Message', 'Subtitle'>",       "cta": "<specific CTA label like 'Try again', 'Submit'>",       "cta2": "<specific secondary label like 'Cancel', 'Dismiss'>"     },     "rationale": "<1 sentence on what changed and why>"   },
   "accessibility": {
     "score": <number 0-10>,
     "checks": [
@@ -792,13 +792,71 @@ function AuditTab({ guidelines, saved, prd }) {
         </div>
 
         {result.rewrite && (
-          <div style={{ padding: 20, background: C.successDim, borderRadius: 12,
-            border: `1px solid rgba(45,106,79,0.15)`, marginBottom: 24 }}>
-            <p style={{ fontFamily: SANS, fontSize: 16, fontWeight: 600, color: C.success,
-              textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 8px" }}>Suggested rewrite</p>
-            <p style={{ fontFamily: MONO, fontSize: 19, color: C.heading, margin: 0, lineHeight: 1.7 }}>{result.rewrite}</p>
+  <div style={{ padding: 20, background: C.successDim, borderRadius: 12,
+    border: `1px solid rgba(45,106,79,0.15)`, marginBottom: 24 }}>
+    <p style={{ fontFamily: SANS, fontSize: 16, fontWeight: 600, color: C.success,
+      textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 14px" }}>Suggested rewrite</p>
+    {typeof result.rewrite === "string" ? (
+      <p style={{ fontFamily: SANS, fontSize: 16, color: C.heading, margin: 0, lineHeight: 1.7 }}>{result.rewrite}</p>
+    ) : (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {result.rewrite.headline && (
+          <div>
+            <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 600, color: "rgba(45,106,79,0.6)",
+              textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 3 }}>
+              {result.rewrite.fieldLabels?.headline || "Heading"}
+            </span>
+            <p style={{ fontFamily: DISPLAY, fontSize: 19, fontWeight: 700, color: C.heading,
+              margin: 0, lineHeight: 1.25 }}>{result.rewrite.headline}</p>
           </div>
         )}
+        {result.rewrite.body && (
+          <div>
+            <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 600, color: "rgba(45,106,79,0.6)",
+              textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 3 }}>
+              {result.rewrite.fieldLabels?.body || "Body"}
+            </span>
+            <p style={{ fontFamily: SANS, fontSize: 16, color: C.body, margin: 0, lineHeight: 1.6 }}>{result.rewrite.body}</p>
+          </div>
+        )}
+        {(result.rewrite.cta || result.rewrite.cta2) && (
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-end" }}>
+            {result.rewrite.cta && (
+              <div>
+                <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 600, color: "rgba(45,106,79,0.6)",
+                  textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 4 }}>
+                  {result.rewrite.fieldLabels?.cta || "Primary CTA"}
+                </span>
+                <span style={{ display: "inline-block", fontFamily: SANS, fontSize: 14, fontWeight: 500,
+                  color: C.bg, background: C.success, padding: "7px 16px", borderRadius: 8, lineHeight: 1 }}>
+                  {result.rewrite.cta}
+                </span>
+              </div>
+            )}
+            {result.rewrite.cta2 && (
+              <div>
+                <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 600, color: "rgba(45,106,79,0.6)",
+                  textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: 4 }}>
+                  {result.rewrite.fieldLabels?.cta2 || "Secondary"}
+                </span>
+                <span style={{ display: "inline-block", fontFamily: SANS, fontSize: 14, fontWeight: 400,
+                  color: C.secondary, border: `1px solid rgba(45,106,79,0.25)`, padding: "6px 16px", borderRadius: 8, lineHeight: 1 }}>
+                  {result.rewrite.cta2}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+        {result.rewrite.rationale && (
+          <p style={{ fontFamily: SANS, fontSize: 14, color: C.success, margin: 0, lineHeight: 1.55,
+            borderTop: `1px solid rgba(45,106,79,0.12)`, paddingTop: 10, fontStyle: "italic" }}>
+            {result.rewrite.rationale}
+          </p>
+        )}
+      </div>
+    )}
+  </div>
+)}
 
         <div style={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 24, borderRadius: 12, overflow: "hidden", border: `1px solid ${C.border}` }}>
           {result.checks?.map((c, i) => (
