@@ -69,7 +69,7 @@ Tone shifts:
 
 Rules:
 - Plain language always.
-- Specific actions ("Call your doctor" > "Seek medical attention").
+- Specific actions ("Call your healthcare provider" > "Seek medical attention").
 - Never diagnose or suggest diagnoses.
 - Clarify urgent vs. can-wait situations.
 - Privacy is paramount — never reference conditions in notifications.
